@@ -1,67 +1,46 @@
- <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
-     <!--
+<div class="sidebar" data-color="purple" data-image="{{ asset('admin/assets/img/sidebar-5.jpg') }}">
+    <div class="sidebar-wrapper">
+        <div class="logo">
+            <a href="{{ route('dashboard') }}" class="simple-text">
+                Dashboard User
+            </a>
+        </div>
 
-        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
-        Tip 2: you can also add an image using data-image tag
+        <ul class="nav">
+            {{-- Dashboard --}}
+            <li class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}">
+                    <i class="pe-7s-graph"></i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
 
-    -->
+            {{-- User --}}
+            <li class="{{ request()->routeIs('users.index') ? 'active' : '' }}">
+                <a href="{{ route('users.index') }}">
+                    <i class="pe-7s-users"></i>
+                    <p>Pengguna</p>
+                </a>
+            </li>
 
-     <div class="sidebar-wrapper">
-         <div class="logo">
-             <a href="http://www.creative-tim.com" class="simple-text">
-                 Creative Tim
-             </a>
-         </div>
+            {{-- Profile --}}
+            <li class="{{ request()->routeIs('users.profile') ? 'active' : '' }}">
+                <a href="{{ route('users.profile', auth()->user()->id) }}">
+                    <i class="pe-7s-user"></i>
+                    <p>Profil Saya</p>
+                </a>
+            </li>
 
-         <ul class="nav">
-             <li class="active">
-                 <a href="dashboard.html">
-                     <i class="pe-7s-graph"></i>
-                     <p>Dashboard</p>
-                 </a>
-             </li>
-             <li>
-                 <a href="user.html">
-                     <i class="pe-7s-user"></i>
-                     <p>User Profile</p>
-                 </a>
-             </li>
-             <li>
-                 <a href="table.html">
-                     <i class="pe-7s-note2"></i>
-                     <p>Table List</p>
-                 </a>
-             </li>
-             <li>
-                 <a href="typography.html">
-                     <i class="pe-7s-news-paper"></i>
-                     <p>Typography</p>
-                 </a>
-             </li>
-             <li>
-                 <a href="icons.html">
-                     <i class="pe-7s-science"></i>
-                     <p>Icons</p>
-                 </a>
-             </li>
-             <li>
-                 <a href="maps.html">
-                     <i class="pe-7s-map-marker"></i>
-                     <p>Maps</p>
-                 </a>
-             </li>
-             <li>
-                 <a href="notifications.html">
-                     <i class="pe-7s-bell"></i>
-                     <p>Notifications</p>
-                 </a>
-             </li>
-             <li class="active-pro">
-                 <a href="upgrade.html">
-                     <i class="pe-7s-rocket"></i>
-                     <p>Upgrade to PRO</p>
-                 </a>
-             </li>
-         </ul>
-     </div>
- </div>
+            {{-- Logout --}}
+            <li>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="pe-7s-power"></i>
+                    <p>Logout</p>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>

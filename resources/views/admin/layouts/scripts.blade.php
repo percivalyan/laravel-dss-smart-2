@@ -23,7 +23,7 @@
 
         $.notify({
             icon: "pe-7s-gift",
-            message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.",
+            message: "Hello <b>{{ auth()->user()->name }}</b>, welcome to your dashboard! This is a demo notification, check the <b>Notifications</b> section for more examples.",
         }, {
             type: "info",
             timer: 4000,
