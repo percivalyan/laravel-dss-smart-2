@@ -2,12 +2,19 @@
 
 @section('content')
     <div class="container-fluid">
+        <div class="text-start px-3 pt-3">
+            <a href="{{ route('sub-criteriana.index') }}" class="btn btn-warning btn-fill">
+                <i class="fa fa-arrow-right"></i> Pindah ke Non Academic
+            </a>
+        </div>
+        <br>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
                         <h4 class="title">Tambah Criteria</h4>
                     </div>
+                    {{-- tombol ke sub_criteriana.index --}}
                     <div class="content">
                         <form action="{{ route('sub-criteria.quick-store') }}" method="POST">
                             @csrf
