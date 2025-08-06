@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold mb-4">Hasil Perhitungan SPK Metode SMART</h4>
+        <h4 class="fw-bold mb-4">Hasil Perhitungan SPK Non-Akademik (SMART)</h4>
 
         {{-- Tabel Hasil Utility --}}
         <div class="table-responsive mb-5" style="overflow-x: auto;">
@@ -10,14 +10,14 @@
                 <thead class="table-light">
                     <tr>
                         <th rowspan="2">Alternatif</th>
-                        @foreach ($criterias as $criteria)
+                        @foreach ($criteriaNonAcademics as $criteria)
                             <th colspan="4">{{ $criteria->criteria_name }} ({{ $criteria->criteriaCode->criteria_code }})
                             </th>
                         @endforeach
                         <th rowspan="2">Total Utility</th>
                     </tr>
                     <tr>
-                        @foreach ($criterias as $criteria)
+                        @foreach ($criteriaNonAcademics as $criteria)
                             <th>Nilai</th>
                             <th>Normalisasi</th>
                             <th>Bobot</th>
@@ -26,10 +26,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($alternatives as $alt)
+                    @foreach ($alternativeNonAcademics as $alt)
                         <tr>
                             <td>{{ $alt->alternative_name }}</td>
-                            @foreach ($criterias as $criteria)
+                            @foreach ($criteriaNonAcademics as $criteria)
                                 <td>{{ number_format($originalValues[$alt->id][$criteria->id] ?? 0, 2) }}</td>
                                 <td>{{ number_format($normalizations[$alt->id][$criteria->id] ?? 0, 3) }}</td>
                                 <td>{{ number_format($weights[$criteria->id] ?? 0, 2) }}</td>
@@ -55,7 +55,7 @@
                 </thead>
                 <tbody>
                     @foreach ($totals as $alt_id => $total)
-                        @php $alt = $alternatives->firstWhere('id', $alt_id); @endphp
+                        @php $alt = $alternativeNonAcademics->firstWhere('id', $alt_id); @endphp
                         <tr>
                             <td class="fw-bold">{{ $rankings[$alt_id] }}</td>
                             <td>{{ $alt->alternative_name }}</td>

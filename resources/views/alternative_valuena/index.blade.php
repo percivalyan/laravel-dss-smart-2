@@ -3,15 +3,14 @@
 @section('content')
     <div class="container-fluid">
         <div class="text-start px-3 pt-3">
-            <a href="{{ route('alternative-valuena.index') }}" class="btn btn-warning btn-fill">
-                <i class="fa fa-arrow-right"></i> Pindah ke Nilai Alternatif Non-Akademik
+            <a href="{{ route('alternative-value.index') }}" class="btn btn-warning btn-fill">
+                <i class="fa fa-arrow-right"></i> Pindah ke Nilai Alternatif Akademik
             </a>
 
-            <a href="{{ route('alternative-value.smart-calculate') }}" class="btn btn-success btn-fill">
-               <i class="fa fa-arrow-right"></i>Perhitungan SMART Nilai Akademik
+            <a href="{{ route('alternative-valuena.smart-calculate') }}" class="btn btn-success btn-fill">
+                <i class="fa fa-arrow-right"></i>Perhitungan SMART Nilai Non Akademik
             </a>
         </div>
-        <br>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -22,15 +21,15 @@
                         </div>
                     @endif
                     <div class="header">
-                        <h4 class="title">Penilaian Alternatif Setiap Kriteria</h4>
+                        <h4 class="title">Penilaian Alternatif Non-Akademik Setiap Kriteria</h4>
                     </div>
                     <div class="content">
 
-                        <a href="{{ route('alternative-value.smart-calculate') }}" class="btn btn-success btn-fill mb-3">
+                        <a href="{{ route('alternative-valuena.smart-calculate') }}" class="btn btn-success btn-fill mb-3">
                             <i class="fa fa-calculator"></i> Hitung SPK Metode SMART
                         </a>
 
-                        <form action="{{ route('alternative-value.bulk-update') }}" method="POST">
+                        <form action="{{ route('alternative-valuena.bulk-update') }}" method="POST">
                             @csrf
 
                             <div class="table-responsive">
@@ -38,25 +37,24 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th>Alternatif</th>
-                                            @foreach ($criterias as $criteria)
+                                            @foreach ($criteriaNonAcademics as $criteria)
                                                 <th>{{ $criteria->criteriaCode->criteria_code }}</th>
                                             @endforeach
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($alternatives as $alt)
+                                        @foreach ($alternativeNonAcademics as $alt)
                                             <tr>
                                                 <td>{{ $alt->alternative_name }}</td>
-                                                @foreach ($criterias as $criteria)
+                                                @foreach ($criteriaNonAcademics as $criteria)
                                                     <td>
                                                         <div class="form-group">
-                                                            {{-- <label>Pilih Nilai</label> --}}
                                                             <select name="values[{{ $alt->id }}][{{ $criteria->id }}]"
                                                                 class="form-control">
-                                                                @foreach ($subCriterias->where('criteria_code_id', $criteria->criteria_code_id) as $sub)
+                                                                @foreach ($subCriteriaNonAcademics->where('criteria_code_id', $criteria->criteria_code_id) as $sub)
                                                                     <option value="{{ $sub->id }}"
-                                                                        @if (isset($alternativeValues[$alt->id][$criteria->id]) &&
-                                                                                $alternativeValues[$alt->id][$criteria->id]->first()->sub_criteria_id == $sub->id) selected @endif>
+                                                                        @if (isset($alternativeValueNonAcademics[$alt->id][$criteria->id]) &&
+                                                                                $alternativeValueNonAcademics[$alt->id][$criteria->id]->first()->sub_criteria_non_academic_id == $sub->id) selected @endif>
                                                                         {{ $sub->sub_criteria_value }}
                                                                         ({{ $sub->sub_criteria_name }})
                                                                     </option>
