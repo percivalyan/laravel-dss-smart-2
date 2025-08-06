@@ -25,7 +25,7 @@ if (!function_exists('generate_breadcrumbs')) {
             // Cek apakah segment numerik (biasanya ID)
             if (is_numeric($segment)) {
                 $prevSegment = $segments[$key - 1] ?? '';
-                $title = 'Detail ' . ucwords(str_replace(['-', '_'], ' ', $prevSegment));
+                $title = ucwords(str_replace(['-', '_'], ' ', $prevSegment));
             } else {
                 $title = $customTitles[$segment] ?? ucwords(str_replace(['-', '_'], ' ', $segment));
             }
