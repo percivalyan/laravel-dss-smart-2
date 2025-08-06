@@ -32,68 +32,80 @@ Route::middleware([AuthOnly::class])->group(function () {
     Route::post('/change-password', [AuthController::class, 'changePassword'])->name('password.update');
     Route::resource('users', UserController::class);
     Route::get('/users/{id}/profile', [UserController::class, 'show'])->name('users.profile');
+    // Index
+    Route::get('/data-kode-kriteria', [CriteriaCodeController::class, 'index'])->name('criteria_code.index');
 
-    Route::resource('criteria-code', CriteriaCodeController::class);
+    // Create Form
+    Route::get('/data-kode-kriteria/input-data-kode-kriteria', [CriteriaCodeController::class, 'create'])->name('criteria_code.create');
+
+    // Store Data
+    Route::post('/data-kode-kriteria', [CriteriaCodeController::class, 'store'])->name('criteria_code.store');
+
+    // Edit Form
+    Route::get('/data-kode-kriteria/{id}/edit-data-kode-kriteria', [CriteriaCodeController::class, 'edit'])->name('criteria_code.edit');
+
+    // Update Data
+    Route::put('/data-kode-kriteria/{id}', [CriteriaCodeController::class, 'update'])->name('criteria_code.update');
+
+    // Delete Data
+    Route::delete('/data-kode-kriteria/{id}', [CriteriaCodeController::class, 'destroy'])->name('criteria_code.destroy');
+
     // Academic
-    Route::get('/alternative', [AlternativeController::class, 'index'])->name('alternative.index');
-    Route::get('/alternative/create', [AlternativeController::class, 'create'])->name('alternative.create');
-    Route::post('/alternative', [AlternativeController::class, 'store'])->name('alternative.store');
-    Route::get('/alternative/edit/{id}', [AlternativeController::class, 'edit'])->name('alternative.edit');
-    Route::put('/alternative/update/{id}', [AlternativeController::class, 'update'])->name('alternative.update');
-    Route::delete('/alternative/delete/{id}', [AlternativeController::class, 'destroy'])->name('alternative.destroy');
+    Route::get('/data-alternatif-akademik-dan-non-akademik', [AlternativeController::class, 'index'])->name('alternative.index');
+    Route::get('/data-alternatif-akademik/input-data-alternatif-akademik', [AlternativeController::class, 'create'])->name('alternative.create');
+    Route::post('/data-alternatif-akademik', [AlternativeController::class, 'store'])->name('alternative.store');
+    Route::get('/data-alternatif-akademik/edit-data-alternatif-akademik/{id}', [AlternativeController::class, 'edit'])->name('alternative.edit');
+    Route::put('/data-alternatif-akademik/update/{id}', [AlternativeController::class, 'update'])->name('alternative.update');
+    Route::delete('/data-alternatif-akademik/delete/{id}', [AlternativeController::class, 'destroy'])->name('alternative.destroy');
 
     // Non-Academic
-    Route::get('/alternative/nonacademic/create', [AlternativeController::class, 'createNonAcademic'])->name('alternative.nonacademic.create');
-    Route::post('/alternative/nonacademic', [AlternativeController::class, 'storeNonAcademic'])->name('alternative.nonacademic.store');
-    Route::get('/alternative/nonacademic/edit/{id}', [AlternativeController::class, 'editNonAcademic'])->name('alternative.nonacademic.edit');
-    Route::put('/alternative/nonacademic/update/{id}', [AlternativeController::class, 'updateNonAcademic'])->name('alternative.nonacademic.update');
-    Route::delete('/alternative/nonacademic/delete/{id}', [AlternativeController::class, 'destroyNonAcademic'])->name('alternative.nonacademic.destroy');
+    Route::get('/data-alternatif-akademik/input-data-non-alternatif-akademik', [AlternativeController::class, 'createNonAcademic'])->name('alternative.nonacademic.create');
+    Route::post('/data-alternatif-non-akademik', [AlternativeController::class, 'storeNonAcademic'])->name('alternative.nonacademic.store');
+    Route::get('/data-alternatif-non-akademik/edit-data-non-alternatif-akademik/{id}', [AlternativeController::class, 'editNonAcademic'])->name('alternative.nonacademic.edit');
+    Route::put('/data-alternatif-non-akademik/update/{id}', [AlternativeController::class, 'updateNonAcademic'])->name('alternative.nonacademic.update');
+    Route::delete('/data-alternatif-non-akademik/delete/{id}', [AlternativeController::class, 'destroyNonAcademic'])->name('alternative.nonacademic.destroy');
 
     // Route::resource('sub-criteria', SubCriteriaController::class);
-    Route::get('sub-criteria', [SubCriteriaController::class, 'index'])->name('sub-criteria.index');
-    Route::post('sub-criteria/bulk-update', [SubCriteriaController::class, 'bulkUpdate'])->name('sub-criteria.bulk-update');
-    Route::post('sub-criteria/quick-store', [SubCriteriaController::class, 'quickStore'])->name('sub-criteria.quick-store');
+    Route::get('data-sub-kriteria-akademik', [SubCriteriaController::class, 'index'])->name('sub-criteria.index');
+    Route::post('data-sub-kriteria-akademik/bulk-update', [SubCriteriaController::class, 'bulkUpdate'])->name('sub-criteria.bulk-update');
+    Route::post('data-sub-kriteria-akademik/quick-store', [SubCriteriaController::class, 'quickStore'])->name('sub-criteria.quick-store');
 
-    Route::get('sub-criteriana', [SubCriteriaNonAcademicController::class, 'index'])->name('sub-criteriana.index');
-    Route::post('sub-criteriana/bulk-update', [SubCriteriaNonAcademicController::class, 'bulkUpdate'])->name('sub-criteriana.bulk-update');
-    Route::post('sub-criteriana/quick-store', [SubCriteriaNonAcademicController::class, 'quickStore'])->name('sub-criteriana.quick-store');
+    Route::get('data-sub-kriteria-non-akademik', [SubCriteriaNonAcademicController::class, 'index'])->name('sub-criteriana.index');
+    Route::post('data-sub-kriteria-non-akademik/bulk-update', [SubCriteriaNonAcademicController::class, 'bulkUpdate'])->name('sub-criteriana.bulk-update');
+    Route::post('data-sub-kriteria-non-akademik/quick-store', [SubCriteriaNonAcademicController::class, 'quickStore'])->name('sub-criteriana.quick-store');
 
-    Route::prefix('criteria')->name('criteria.')->group(function () {
-        // Index Page
-        Route::get('/', [CriteriaController::class, 'index'])->name('index');
+    // Academic Criteria
+    Route::get('/data-kriteria-akademik-dan-non-akademik', [CriteriaController::class, 'index'])->name('criteria.index');
+    Route::get('/data-kriteria-akademik/input-data-kriteria-akademik', [CriteriaController::class, 'create'])->name('criteria.create');
+    Route::post('/data-kriteria-akademik/store', [CriteriaController::class, 'store'])->name('criteria.store');
+    Route::get('/data-kriteria-akademik/edit-data-kriteria-akademik/{id}', [CriteriaController::class, 'edit'])->name('criteria.edit');
+    Route::put('/data-kriteria-akademik/update/{id}', [CriteriaController::class, 'update'])->name('criteria.update');
+    Route::delete('/data-kriteria-akademik/destroy/{id}', [CriteriaController::class, 'destroy'])->name('criteria.destroy');
 
-        // Academic Criteria
-        Route::get('/create', [CriteriaController::class, 'create'])->name('create');
-        Route::post('/store', [CriteriaController::class, 'store'])->name('store');
-        Route::get('/edit/{id}', [CriteriaController::class, 'edit'])->name('edit');
-        Route::put('/update/{id}', [CriteriaController::class, 'update'])->name('update');
-        Route::delete('/destroy/{id}', [CriteriaController::class, 'destroy'])->name('destroy');
-
-        // Non-Academic Criteria
-        Route::get('/non-academic/create', [CriteriaController::class, 'createNonAcademic'])->name('nonacademic.create');
-        Route::post('/non-academic/store', [CriteriaController::class, 'storeNonAcademic'])->name('nonacademic.store');
-        Route::get('/non-academic/edit/{id}', [CriteriaController::class, 'editNonAcademic'])->name('nonacademic.edit');
-        Route::put('/non-academic/update/{id}', [CriteriaController::class, 'updateNonAcademic'])->name('nonacademic.update');
-        Route::delete('/non-academic/destroy/{id}', [CriteriaController::class, 'destroyNonAcademic'])->name('nonacademic.destroy');
-    });
+    // Non-Academic Criteria
+    Route::get('/data-kriteria-non-akademik/input-data-kriteria-non-akademik', [CriteriaController::class, 'createNonAcademic'])->name('criteria.nonacademic.create');
+    Route::post('/data-kriteria-non-akademik/store', [CriteriaController::class, 'storeNonAcademic'])->name('criteria.nonacademic.store');
+    Route::get('/data-kriteria-non-akademik/edit-data-kriteria-non-akademik/{id}', [CriteriaController::class, 'editNonAcademic'])->name('criteria.nonacademic.edit');
+    Route::put('/data-kriteria-non-akademik/update/{id}', [CriteriaController::class, 'updateNonAcademic'])->name('criteria.nonacademic.update');
+    Route::delete('/data-kriteria-non-akademik/destroy/{id}', [CriteriaController::class, 'destroyNonAcademic'])->name('criteria.nonacademic.destroy');
 
     // Route::resource('alternative-value', AlternativeValueController::class);
-    Route::get('/alternative-value', [AlternativeValueController::class, 'index'])
+    Route::get('/data-nilai-alternatif-akademik', [AlternativeValueController::class, 'index'])
         ->name('alternative-value.index');
 
-    Route::post('/alternative-value/bulk-update', [AlternativeValueController::class, 'bulkUpdate'])
+    Route::post('/data-nilai-alternatif-akademik/edit-semua-nilai-akademik', [AlternativeValueController::class, 'bulkUpdate'])
         ->name('alternative-value.bulk-update');
 
-    Route::get('/alternative-value/smart-calculate', [AlternativeValueController::class, 'smartCalculate'])
+    Route::get('/data-nilai-alternatif-akademik/perhitungan-spk-smart-nilai-akademik', [AlternativeValueController::class, 'smartCalculate'])
         ->name('alternative-value.smart-calculate');
 
-    Route::get('/alternative-valuena', [AlternativeValueNonAcademicController::class, 'index'])
+    Route::get('/data-nilai-alternatif-non-akademik', [AlternativeValueNonAcademicController::class, 'index'])
         ->name('alternative-valuena.index');
 
-    Route::post('/alternative-valuena/bulk-update', [AlternativeValueNonAcademicController::class, 'bulkUpdate'])
+    Route::post('/data-nilai-alternatif-non-akademik/edit-semua-nilai-non-akademik', [AlternativeValueNonAcademicController::class, 'bulkUpdate'])
         ->name('alternative-valuena.bulk-update');
 
-    Route::get('/alternative-valuena/smart-calculate', [AlternativeValueNonAcademicController::class, 'smartCalculate'])
+    Route::get('/data-nilai-alternatif-non-akademik/sperhitungan-spk-smart-nilai-non-akademik', [AlternativeValueNonAcademicController::class, 'smartCalculate'])
         ->name('alternative-valuena.smart-calculate');
 });
 
