@@ -32,23 +32,24 @@ Route::middleware([AuthOnly::class])->group(function () {
     Route::post('/change-password', [AuthController::class, 'changePassword'])->name('password.update');
     Route::resource('users', UserController::class);
     Route::get('/users/{id}/profile', [UserController::class, 'show'])->name('users.profile');
-    // Index
-    Route::get('/data-kode-kriteria', [CriteriaCodeController::class, 'index'])->name('criteria_code.index');
+     Route::resource('criteria-code', CriteriaCodeController::class);
+    // // Index
+    // Route::get('/data-kode-kriteria', [CriteriaCodeController::class, 'index'])->name('criteria_code.index');
 
-    // Create Form
-    Route::get('/data-kode-kriteria/input-data-kode-kriteria', [CriteriaCodeController::class, 'create'])->name('criteria_code.create');
+    // // Create Form
+    // Route::get('/data-kode-kriteria/input-data-kode-kriteria', [CriteriaCodeController::class, 'create'])->name('criteria_code.create');
 
-    // Store Data
-    Route::post('/data-kode-kriteria', [CriteriaCodeController::class, 'store'])->name('criteria_code.store');
+    // // Store Data
+    // Route::post('/data-kode-kriteria', [CriteriaCodeController::class, 'store'])->name('criteria_code.store');
 
-    // Edit Form
-    Route::get('/data-kode-kriteria/{id}/edit-data-kode-kriteria', [CriteriaCodeController::class, 'edit'])->name('criteria_code.edit');
+    // // Edit Form
+    // Route::get('/data-kode-kriteria/{id}/edit-data-kode-kriteria', [CriteriaCodeController::class, 'edit'])->name('criteria_code.edit');
 
-    // Update Data
-    Route::put('/data-kode-kriteria/{id}', [CriteriaCodeController::class, 'update'])->name('criteria_code.update');
+    // // Update Data
+    // Route::put('/data-kode-kriteria/{id}', [CriteriaCodeController::class, 'update'])->name('criteria_code.update');
 
-    // Delete Data
-    Route::delete('/data-kode-kriteria/{id}', [CriteriaCodeController::class, 'destroy'])->name('criteria_code.destroy');
+    // // Delete Data
+    // Route::delete('/data-kode-kriteria/{id}', [CriteriaCodeController::class, 'destroy'])->name('criteria_code.destroy');
 
     // Academic
     Route::get('/data-alternatif-akademik-dan-non-akademik', [AlternativeController::class, 'index'])->name('alternative.index');
