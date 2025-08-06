@@ -31,6 +31,69 @@
                 </a>
             </li>
 
+            {{-- Change Password --}}
+            <li class="{{ request()->routeIs('password.change') ? 'active' : '' }}">
+                <a href="{{ route('password.change') }}">
+                    <i class="pe-7s-key"></i>
+                    <p>Ganti Password</p>
+                </a>
+            </li>
+
+            {{-- Criteria Code --}}
+            <li class="{{ request()->routeIs('criteria-code.*') ? 'active' : '' }}">
+                <a href="{{ route('criteria-code.index') }}">
+                    <i class="pe-7s-note2"></i>
+                    <p>Kode Kriteria</p>
+                </a>
+            </li>
+
+            {{-- Criteria --}}
+            <li class="{{ request()->routeIs('criteria.*') ? 'active' : '' }}">
+                <a href="{{ route('criteria.index') }}">
+                    <i class="pe-7s-note"></i>
+                    <p>Kriteria</p>
+                </a>
+            </li>
+
+            {{-- Sub Criteria --}}
+            <li class="{{ request()->routeIs('sub-criteria.index') ? 'active' : '' }}">
+                <a href="{{ route('sub-criteria.index') }}">
+                    <i class="pe-7s-menu"></i>
+                    <p>Sub Kriteria</p>
+                </a>
+            </li>
+
+            {{-- <li class="{{ request()->routeIs('sub-criteriana.index') ? 'active' : '' }}">
+                <a href="{{ route('sub-criteriana.index') }}">
+                    <i class="pe-7s-menu"></i>
+                    <p>Sub Kriteria Non Academic</p>
+                </a>
+            </li> --}}
+
+            {{-- Alternative --}}
+            <li class="{{ request()->routeIs('alternative.*') ? 'active' : '' }}">
+                <a href="{{ route('alternative.index') }}">
+                    <i class="pe-7s-way"></i>
+                    <p>Alternatif</p>
+                </a>
+            </li>
+
+            {{-- Alternative Value --}}
+            <li class="{{ request()->routeIs('alternative-value.index') ? 'active' : '' }}">
+                <a href="{{ route('alternative-value.index') }}">
+                    <i class="pe-7s-graph1"></i>
+                    <p>Nilai Alternatif</p>
+                </a>
+            </li>
+
+            {{-- Smart Calculation --}}
+            {{-- <li class="{{ request()->routeIs('alternative-value.smart-calculate') ? 'active' : '' }}">
+                <a href="{{ route('alternative-value.smart-calculate') }}">
+                    <i class="pe-7s-magic-wand"></i>
+                    <p>Perhitungan SMART</p>
+                </a>
+            </li> --}}
+
             {{-- Logout --}}
             <li>
                 <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

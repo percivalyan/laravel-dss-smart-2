@@ -30,3 +30,13 @@
         });
     });
 </script>
+
+{{-- <script>
+    document.querySelectorAll('.toggle-submenu').forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+            const parentLi = this.parentElement;
+            parentLi.classList.toggle('active');
+        });
+    });
+</script> --}}
