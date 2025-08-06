@@ -15,4 +15,9 @@ class CriteriaCode extends Model
     {
         return $this->hasMany(Criteria::class);
     }
+
+       public function criteriaNonAcademics()
+    {
+        return $this->hasMany(CriteriaNonAcademic::class);
+    }
 }
