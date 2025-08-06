@@ -63,6 +63,13 @@
                 </a>
             </li>
 
+            {{-- <li class="{{ request()->routeIs('sub-criteriana.index') ? 'active' : '' }}">
+                <a href="{{ route('sub-criteriana.index') }}">
+                    <i class="pe-7s-menu"></i>
+                    <p>Sub Kriteria Non Academic</p>
+                </a>
+            </li> --}}
+
             {{-- Alternative --}}
             <li class="{{ request()->routeIs('alternative.*') ? 'active' : '' }}">
                 <a href="{{ route('alternative.index') }}">
@@ -80,12 +87,12 @@
             </li>
 
             {{-- Smart Calculation --}}
-            <li class="{{ request()->routeIs('alternative-value.smart-calculate') ? 'active' : '' }}">
+            {{-- <li class="{{ request()->routeIs('alternative-value.smart-calculate') ? 'active' : '' }}">
                 <a href="{{ route('alternative-value.smart-calculate') }}">
                     <i class="pe-7s-magic-wand"></i>
                     <p>Perhitungan SMART</p>
                 </a>
-            </li>
+            </li> --}}
 
             {{-- Logout --}}
             <li>
