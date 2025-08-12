@@ -17,7 +17,7 @@
 <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 <script src="{{ asset('admin/assets/js/demo.js') }}"></script>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).ready(function() {
         demo.initChartist();
 
@@ -29,7 +29,7 @@
             timer: 4000,
         });
     });
-</script>
+</script> --}}
 
 {{-- <script>
     document.querySelectorAll('.toggle-submenu').forEach(button => {
