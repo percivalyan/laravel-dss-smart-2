@@ -68,6 +68,7 @@
                                             <th style="width: 20%">Kriteria</th>
                                             <th>Sub Kriteria</th>
                                             <th style="width: 15%">Nilai</th>
+                                            <th style="width: 5%">Hapus</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -84,17 +85,19 @@
                                                         name="sub_criteria[{{ $item->id }}][sub_criteria_value]"
                                                         value="{{ $item->sub_criteria_value }}">
                                                 </td>
+                                                <td class="text-center">
+                                                    <input type="checkbox" name="delete_ids[]" value="{{ $item->id }}">
+                                                </td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="3" class="text-center text-muted">
+                                                <td colspan="4" class="text-center text-muted">
                                                     Belum ada data sub kriteria non-academic.
                                                 </td>
                                             </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
-
                                 @if ($subCriteriaNonAcademics->count())
                                     <div class="text-center mt-3">
                                         <button type="submit" class="btn btn-success btn-fill">

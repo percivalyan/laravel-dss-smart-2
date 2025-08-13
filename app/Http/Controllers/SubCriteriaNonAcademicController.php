@@ -22,11 +22,24 @@ class SubCriteriaNonAcademicController extends Controller
         return view('sub_criteriana.index', compact('subCriteriaNonAcademics', 'criteriaCodes'));
     }
 
+   
     public function bulkUpdate(Request $request)
     {
-        $dataNonAcademic = $request->input('sub_criteria', []);
+        $data = $request->input('sub_criteria', []);
+        $deleteIds = $request->input('delete_ids', []);
 
-        foreach ($dataNonAcademic as $id => $row) {
+        // 1. Hapus data yang dicentang
+        if (!empty($deleteIds)) {
+            SubCriteriaNonAcademic::whereIn('id', $deleteIds)->delete();
+        }
+
+        // 2. Update data yang tidak dihapus
+        foreach ($data as $id => $row) {
+            // Skip jika datanya masuk ke daftar hapus
+            if (in_array($id, $deleteIds)) {
+                continue;
+            }
+
             if (isset($row['sub_criteria_name']) && isset($row['sub_criteria_value'])) {
                 SubCriteriaNonAcademic::where('id', $id)->update([
                     'sub_criteria_name'  => $row['sub_criteria_name'],
@@ -35,7 +48,7 @@ class SubCriteriaNonAcademicController extends Controller
             }
         }
 
-        return redirect()->route('sub-criteriana.index')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('sub-criteriana.index')->with('success', 'Perubahan berhasil disimpan.');
     }
 
     public function quickStore(Request $request)

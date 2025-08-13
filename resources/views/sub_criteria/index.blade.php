@@ -70,6 +70,7 @@
                                                 <th style="width: 20%">Kriteria</th>
                                                 <th>Sub Kriteria</th>
                                                 <th style="width: 15%">Nilai</th>
+                                                <th style="width: 5%">Hapus</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -86,12 +87,15 @@
                                                             name="sub_criteria[{{ $item->id }}][sub_criteria_value]"
                                                             value="{{ $item->sub_criteria_value }}">
                                                     </td>
+                                                    <td class="text-center">
+                                                        <input type="checkbox" name="delete_ids[]"
+                                                            value="{{ $item->id }}">
+                                                    </td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="3" class="text-center text-muted">Belum ada data sub
-                                                        kriteria.
-                                                    </td>
+                                                    <td colspan="4" class="text-center text-muted">Belum ada data sub
+                                                        kriteria.</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
