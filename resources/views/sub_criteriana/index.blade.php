@@ -1,16 +1,47 @@
 @extends('admin.layouts.app')
 
 @section('content')
+    <style>
+        /* Agar tabel bisa scroll di mobile */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Supaya kolom tidak terlalu sempit */
+        table {
+            min-width: 600px;
+        }
+
+        /* Form control full width di mobile */
+        @media (max-width: 576px) {
+            .form-group {
+                margin-bottom: 1rem;
+            }
+
+            input.form-control,
+            select.form-control {
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                margin-top: 5px;
+            }
+        }
+    </style>
+
     <div class="container-fluid">
         <div class="text-start px-3 pt-3">
-            <a href="{{ route('sub-criteria.index') }}" class="btn btn-warning btn-fill">
+            <a href="{{ route('sub-criteria.index') }}" class="btn btn-warning btn-fill mb-2">
                 <i class="fa fa-arrow-right"></i> Pindah ke Academic
             </a>
         </div>
         <br>
+
         {{-- Form Tambah --}}
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-6 col-md-8 col-sm-12">
                 <div class="card">
                     <div class="header">
                         <h4 class="title">Tambah Sub Criteria Non-Academic</h4>
@@ -53,7 +84,7 @@
 
         {{-- Tabel Sub Kriteria --}}
         <div class="row mt-4">
-            <div class="col-md-12">
+            <div class="col-12">
                 <div class="card">
                     <div class="header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Daftar Sub Kriteria Non-Academic</h5>
@@ -61,7 +92,7 @@
                     <div class="card-body">
                         <form action="{{ route('sub-criteriana.bulk-update') }}" method="POST">
                             @csrf
-                            <div class="content table-responsive table-full-width">
+                            <div class="table-responsive">
                                 <table class="table table-hover table-striped">
                                     <thead class="table-light">
                                         <tr>
@@ -98,14 +129,15 @@
                                         @endforelse
                                     </tbody>
                                 </table>
-                                @if ($subCriteriaNonAcademics->count())
-                                    <div class="text-center mt-3">
-                                        <button type="submit" class="btn btn-success btn-fill">
-                                            <i class="fa fa-save"></i> Simpan Semua Perubahan
-                                        </button>
-                                    </div>
-                                @endif
                             </div>
+
+                            @if ($subCriteriaNonAcademics->count())
+                                <div class="text-center mt-3">
+                                    <button type="submit" class="btn btn-success btn-fill">
+                                        <i class="fa fa-save"></i> Simpan Semua Perubahan
+                                    </button>
+                                </div>
+                            @endif
                         </form>
                     </div>
                 </div>

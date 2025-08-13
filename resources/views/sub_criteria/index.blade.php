@@ -1,20 +1,51 @@
 @extends('admin.layouts.app')
 
 @section('content')
+    <style>
+        /* Tabel responsive di mobile */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Supaya kolom tidak terlalu sempit */
+        table {
+            min-width: 600px;
+        }
+
+        /* Form control full width di mobile */
+        @media (max-width: 576px) {
+            .form-group {
+                margin-bottom: 1rem;
+            }
+
+            input.form-control,
+            select.form-control {
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                margin-top: 5px;
+            }
+        }
+    </style>
+
     <div class="container-fluid">
         <div class="text-start px-3 pt-3">
-            <a href="{{ route('sub-criteriana.index') }}" class="btn btn-warning btn-fill">
+            <a href="{{ route('sub-criteriana.index') }}" class="btn btn-warning btn-fill mb-2">
                 <i class="fa fa-arrow-right"></i> Pindah ke Non Academic
             </a>
         </div>
         <br>
+
+        {{-- Form Tambah --}}
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-6 col-md-8 col-sm-12">
                 <div class="card">
                     <div class="header">
                         <h4 class="title">Tambah Criteria</h4>
                     </div>
-                    {{-- tombol ke sub_criteriana.index --}}
                     <div class="content">
                         <form action="{{ route('sub-criteria.quick-store') }}" method="POST">
                             @csrf
@@ -29,13 +60,13 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">Nama Sub Kriteria</label>
+                                <label>Nama Sub Kriteria</label>
                                 <input type="text" name="sub_criteria_name" class="form-control"
                                     placeholder="Contoh: Sub Kriteria A" required>
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">Nilai</label>
+                                <label>Nilai</label>
                                 <input type="number" step="any" name="sub_criteria_value" class="form-control"
                                     placeholder="0.00" required>
                             </div>
@@ -50,66 +81,64 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Daftar Sub Kriteria</h5>
-                        </div>
-                        <div class="card-body">
-                            <form action="{{ route('sub-criteria.bulk-update') }}" method="POST">
-                                @csrf
-                                <div class="content table-responsive table-full-width">
-                                    <table class="table table-hover table-striped">
-                                        <thead class="table-light">
+        {{-- Tabel --}}
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Daftar Sub Kriteria</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('sub-criteria.bulk-update') }}" method="POST">
+                            @csrf
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 20%">Kriteria</th>
+                                            <th>Sub Kriteria</th>
+                                            <th style="width: 15%">Nilai</th>
+                                            <th style="width: 5%">Hapus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($subCriterias as $item)
                                             <tr>
-                                                <th style="width: 20%">Kriteria</th>
-                                                <th>Sub Kriteria</th>
-                                                <th style="width: 15%">Nilai</th>
-                                                <th style="width: 5%">Hapus</th>
+                                                <td>{{ $item->criteriaCode->criteria_code }}</td>
+                                                <td>
+                                                    <input type="text" class="form-control"
+                                                        name="sub_criteria[{{ $item->id }}][sub_criteria_name]"
+                                                        value="{{ $item->sub_criteria_name }}">
+                                                </td>
+                                                <td>
+                                                    <input type="number" step="any" class="form-control"
+                                                        name="sub_criteria[{{ $item->id }}][sub_criteria_value]"
+                                                        value="{{ $item->sub_criteria_value }}">
+                                                </td>
+                                                <td class="text-center">
+                                                    <input type="checkbox" name="delete_ids[]" value="{{ $item->id }}">
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse ($subCriterias as $item)
-                                                <tr>
-                                                    <td>{{ $item->criteriaCode->criteria_code }}</td>
-                                                    <td>
-                                                        <input type="text" class="form-control"
-                                                            name="sub_criteria[{{ $item->id }}][sub_criteria_name]"
-                                                            value="{{ $item->sub_criteria_name }}">
-                                                    </td>
-                                                    <td>
-                                                        <input type="number" step="any" class="form-control"
-                                                            name="sub_criteria[{{ $item->id }}][sub_criteria_value]"
-                                                            value="{{ $item->sub_criteria_value }}">
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <input type="checkbox" name="delete_ids[]"
-                                                            value="{{ $item->id }}">
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="4" class="text-center text-muted">Belum ada data sub
-                                                        kriteria.</td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
-                                    @if ($subCriterias->count())
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-success btn-fill mr-4">
-                                                <i class="fa fa-save"></i> Simpan Semua Perubahan
-                                            </button>
-                                        </div>
-                                    @endif
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center text-muted">
+                                                    Belum ada data sub kriteria.
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            @if ($subCriterias->count())
+                                <div class="text-center mt-3">
+                                    <button type="submit" class="btn btn-success btn-fill">
+                                        <i class="fa fa-save"></i> Simpan Semua Perubahan
+                                    </button>
                                 </div>
-                            </form>
-                        </div>
+                            @endif
+                        </form>
                     </div>
                 </div>
             </div>
